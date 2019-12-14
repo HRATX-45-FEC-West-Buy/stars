@@ -2,6 +2,7 @@
   display: block;
   color: rgb(0, 70, 190);
   padding: 0;
+  width: 238px;
 }
 
 div.bar {
@@ -10,6 +11,10 @@ div.bar {
   height: 16px;
   margin-top: 13px;
   cursor: pointer;
+}
+
+div.bar:first-of-type {
+  margin-top: 0;
 }
 
 .star-rating {
@@ -24,7 +29,7 @@ div.bar {
   display: inline-block;
 }
 
-.progress-bar {
+.progress-bar-empty {
   background-color: #e0e6ef;
   margin-top: 3px;
   display: inline-block;
@@ -58,9 +63,22 @@ div.bar {
 
 .rating-count {
   display: inline-block;
-  color:rgb(4, 87, 200);
+  color: rgb(4, 87, 200);
   margin-left: 15px;
   height: 16px;
+  font-size: 13px;
+}
+
+.reviews-link {
+  display: block;
+  margin-top: 5px;
+  padding-top: 15px;
+  position: relative;
+  text-align: center;
+}
+
+.reviews-link a {
+  color: #0457c8;
   font-size: 13px;
 }
 
@@ -136,7 +154,7 @@ div.bar {
     display: inline-block;
   }
 
-  .progress-bar {
+  .progress-bar-empty {
     background-color: #e0e6ef;
     margin-top: 3px;
     display: inline-block;

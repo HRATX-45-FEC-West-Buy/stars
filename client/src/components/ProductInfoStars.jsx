@@ -34,7 +34,16 @@ export default class ProductInfoStars extends React.Component {
       popoverOpen: false
     };
 
-    this.popoverStyles = { padding: "30px" };
+    this.popoverStyles = {
+      width: "300px",
+      height: "240px",
+      "max-width": "300px"
+    };
+    this.popoverContentStyles = {
+      padding: "30px",
+      width: "300px",
+      height: "240px"
+    };
 
     this.toggleCaret = this.toggleCaret.bind(this);
   }
@@ -98,19 +107,26 @@ export default class ProductInfoStars extends React.Component {
               trigger="click"
               placement="bottom"
               overlay={
-                <Popover id="product-info-rating-bar-popover">
-                  <Popover.Content style={this.popoverStyles}>
-                    <div className="bars-container">
-                      {this.state.starRatings.map((count, index) => (
-                        <PopoverBar
-                          starRating={index + 1}
-                          ratingCount={count}
-                          totalRatings={this.state.reviewData.review_count}
-                          key={index}
-                        />
-                      ))}
+                <Popover
+                  id="product-info-rating-bar-popover"
+                  style={this.popoverStyles}
+                >
+                  <Popover.Content style={this.popoverContentStyles}>
+                    <div style={{ width: "100%", height: "100%" }}>
+                      <div className="bars-container">
+                        {this.state.starRatings.map((count, index) => (
+                          <PopoverBar
+                            starRating={index + 1}
+                            ratingCount={count}
+                            totalRatings={this.state.reviewData.review_count}
+                            key={index}
+                          />
+                        ))}
+                      </div>
+                      <div className="reviews-link">
+                        <a href="#">Read Reviews</a>
+                      </div>
                     </div>
-                    <a href="#">Read Reviews</a>
                   </Popover.Content>
                 </Popover>
               }

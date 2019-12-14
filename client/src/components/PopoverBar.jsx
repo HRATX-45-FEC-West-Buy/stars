@@ -54,7 +54,7 @@ export default class PopoverBar extends React.Component {
           <span className="star">{this.props.starRating}</span>
           <i className="gold-star"></i>
         </div>
-        <div className="progress-bar">
+        <div className="progress-bar-empty">
           <span
             className="progress-bar-filled"
             style={{ width: this.state.progressBarPct + "%" }}
