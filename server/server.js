@@ -9,10 +9,10 @@ const port = 7000;
 // writeSpecs.writeSpecs();
 
 const app = express();
+app.use(cors());
 
 app.use(express.static(__dirname + "/../client/dist"));
 app.use(express.json());
-app.use(cors());
 
 mountRoutes(app);
 
