@@ -68,11 +68,11 @@ export default class ProductInfoStars extends React.Component {
   componentDidUpdate(prevProps, prevState) {
     if (prevState.reviewData.product_id !== this.state.reviewData.product_id) {
       const starRatings = [
-        this.state.reviewData.one_star,
-        this.state.reviewData.two_star,
-        this.state.reviewData.three_star,
+        this.state.reviewData.five_star,
         this.state.reviewData.four_star,
-        this.state.reviewData.five_star
+        this.state.reviewData.three_star,
+        this.state.reviewData.two_star,
+        this.state.reviewData.one_star
       ];
 
       this.setState({ starRatings });
@@ -114,14 +114,16 @@ export default class ProductInfoStars extends React.Component {
                   <Popover.Content style={this.popoverContentStyles}>
                     <div style={{ width: "100%", height: "100%" }}>
                       <div className="bars-container">
-                        {this.state.starRatings.map((count, index) => (
+                        {this.state.starRatings.map((count, index) => {
+                          let ratings = {0: 5, 1: 4, 2: 3, 3: 2, 4: 1}
+                          return (
                           <PopoverBar
-                            starRating={index + 1}
+                            starRating={ratings[index]}
                             ratingCount={count}
                             totalRatings={this.state.reviewData.review_count}
                             key={index}
                           />
-                        ))}
+                        )})}
                       </div>
                       <div className="reviews-link">
                         <a href="#">Read Reviews</a>
