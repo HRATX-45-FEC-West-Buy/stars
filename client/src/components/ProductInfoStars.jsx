@@ -16,6 +16,7 @@ export default class ProductInfoStars extends React.Component {
   constructor(props) {
     super(props);
 
+    console.log("Inside Product Info Star's constructor function");
     this.state = {
       productId: 10,
       reviewData: {
