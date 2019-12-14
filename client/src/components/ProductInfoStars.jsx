@@ -4,9 +4,9 @@ import Overlay from "react-bootstrap/Overlay";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Popover from "react-bootstrap/Popover";
 import $ from "jquery";
+import PopoverBar from "./PopoverBar.jsx";
 
 //styles are necessary to render the correct star rating in the stars <i> tag below
-
 import "./ProductInfoStars.scss";
 import axios from "axios";
 
@@ -29,9 +29,12 @@ export default class ProductInfoStars extends React.Component {
         two_star: 0,
         would_recommend_pct: 0
       },
+      starRatings: [0, 0, 0, 0, 0],
       starClasses: "stars stars-small stars-small-0-0",
       popoverOpen: false
     };
+
+    this.popoverStyles = { padding: "30px" };
 
     this.toggleCaret = this.toggleCaret.bind(this);
   }
@@ -53,8 +56,22 @@ export default class ProductInfoStars extends React.Component {
       });
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.reviewData.product_id !== this.state.reviewData.product_id) {
+      const starRatings = [
+        this.state.reviewData.one_star,
+        this.state.reviewData.two_star,
+        this.state.reviewData.three_star,
+        this.state.reviewData.four_star,
+        this.state.reviewData.five_star
+      ];
+
+      this.setState({ starRatings });
+    }
+  }
+
   toggleCaret() {
-    console.log("toggleCaret called!")
+    console.log("toggleCaret called!");
     if (!this.state.popoverOpen) {
       $(".product-info-ratings-caret").addClass("up");
     } else if (this.state.popoverOpen) {
@@ -82,7 +99,19 @@ export default class ProductInfoStars extends React.Component {
               placement="bottom"
               overlay={
                 <Popover id="product-info-rating-bar-popover">
-                  <Popover.Content>RATING BARS!</Popover.Content>
+                  <Popover.Content style={this.popoverStyles}>
+                    <div className="bars-container">
+                      {this.state.starRatings.map((count, index) => (
+                        <PopoverBar
+                          starRating={index + 1}
+                          ratingCount={count}
+                          totalRatings={this.state.reviewData.review_count}
+                          key={index}
+                        />
+                      ))}
+                    </div>
+                    <a href="#">Read Reviews</a>
+                  </Popover.Content>
                 </Popover>
               }
             >
