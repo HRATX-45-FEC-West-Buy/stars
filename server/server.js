@@ -16,6 +16,10 @@ app.use(express.json());
 
 mountRoutes(app);
 
+app.get('/test', (req, res) => {
+  res.send("Test working!");
+})
+
 app.listen(port, () => {
   console.log("Now listening on port " + port + "!");
 });
