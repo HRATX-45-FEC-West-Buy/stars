@@ -71,7 +71,7 @@ export default class ProductInfoStars extends React.Component {
           });
         })
         .catch(err => {
-          console.log;
+          console.log(err);
         });
     });
   }
