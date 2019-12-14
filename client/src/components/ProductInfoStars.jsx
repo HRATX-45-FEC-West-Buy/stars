@@ -49,20 +49,31 @@ export default class ProductInfoStars extends React.Component {
   }
 
   componentDidMount() {
-    axios
-      .get(`/info/${this.state.productId}`)
-      .then(data => {
-        console.log("Data from info stars get request: ", data.data);
-        this.setState({ reviewData: data.data }, () => {
-          const starClasses = `stars stars-small stars-small-${
-            data.data.average_rating.toFixed(1)[0]
-          }-${data.data.average_rating.toFixed(1)[2]}`;
-          this.setState({ starClasses });
+    console.log("Stars mounting");
+    const getProductID = () => {
+      let productUrl = window.location.href;
+      let urlBits = productUrl.split("/");
+      console.log("id parsed from URL in Stars component: ", urlBits[urlBits.length - 2]);
+      return urlBits[urlBits.length - 2];
+    };
+    let productId = parseInt(getProductID());
+    this.setState({ productId }, () => {
+      axios
+        .get(`http://pi-stars.us-east-2.elasticbeanstalk.com/info/${this.state.productId}`)
+        // .get(`/info/${this.state.productId}`)
+        .then(data => {
+          console.log("Data from info stars get request: ", data.data);
+          this.setState({ reviewData: data.data }, () => {
+            const starClasses = `stars stars-small stars-small-${
+              data.data.average_rating.toFixed(1)[0]
+            }-${data.data.average_rating.toFixed(1)[2]}`;
+            this.setState({ starClasses });
+          });
+        })
+        .catch(err => {
+          console.log;
         });
-      })
-      .catch(err => {
-        console.log;
-      });
+    });
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -115,15 +126,16 @@ export default class ProductInfoStars extends React.Component {
                     <div style={{ width: "100%", height: "100%" }}>
                       <div className="bars-container">
                         {this.state.starRatings.map((count, index) => {
-                          let ratings = {0: 5, 1: 4, 2: 3, 3: 2, 4: 1}
+                          let ratings = { 0: 5, 1: 4, 2: 3, 3: 2, 4: 1 };
                           return (
-                          <PopoverBar
-                            starRating={ratings[index]}
-                            ratingCount={count}
-                            totalRatings={this.state.reviewData.review_count}
-                            key={index}
-                          />
-                        )})}
+                            <PopoverBar
+                              starRating={ratings[index]}
+                              ratingCount={count}
+                              totalRatings={this.state.reviewData.review_count}
+                              key={index}
+                            />
+                          );
+                        })}
                       </div>
                       <div className="reviews-link">
                         <a href="#">Read Reviews</a>

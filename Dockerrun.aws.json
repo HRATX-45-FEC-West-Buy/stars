@@ -1,0 +1,11 @@
+{
+    "AWSEBDockerrunVersion": "1",
+    "Image": {
+      "Name": "cjasnyd/product-info-stars"
+    },
+    "Ports": [
+      {
+        "ContainerPort": "7000"
+      }
+    ]
+  }
