@@ -17,7 +17,7 @@ export default class ProductInfoStars extends React.Component {
     super(props);
 
     this.state = {
-      productId: 54,
+      productId: 10,
       reviewData: {
         average_rating: 0,
         five_star: 0,
